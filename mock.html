@@ -1,0 +1,381 @@
+<!-- To do: Voor persoonlijk advies neem contact op met ErfoCentrum Vragenlijn-->
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Erfocentrum – Prototype</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f6f8f9;
+    }
+
+    header {
+      background: #005a8f;
+      color: white;
+      padding: 20px;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .content {
+      background: white;
+      padding: 20px;
+      border-radius: 6px;
+    }
+
+    #chat-launcher {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      background: #005a8f;
+      color: white;
+      display: none;              /* default hidden */
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      z-index: 9999;
+      font-size: 22px;
+    }
+
+
+    .chatbox {
+      background: white;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      height: 500px;
+    }
+
+    .chat-header {
+      background: #e6f0f6;
+      padding: 10px;
+      font-weight: bold;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      font-size: 14px;
+    }
+
+    .chat-input button {
+      padding: 10px 15px;
+      border: none;
+      background: #005a8f;
+      color: white;
+      cursor: pointer;
+    }
+
+    .message.bot {
+      background: #f1f1f1;
+      padding: 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .message.user {
+      background: #d9ecf8;
+      padding: 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      text-align: right;
+    }
+
+    /* Floating teaser */
+    #chat-teaser {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 320px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      padding: 12px;
+      z-index: 9999;
+    }
+
+    #chat-teaser .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    #chat-teaser button {
+      flex: 1;
+      padding: 8px 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #chat-teaser .yes { background: #005a8f; color: white; }
+    #chat-teaser .no  { background: #eee; }
+
+    /* Floating chat widget */
+    #chat-widget {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 360px;
+      z-index: 9999;
+      display: none; /* start hidden */
+    }
+
+    .chat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-close {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+      .chat-embed {
+    flex: 1;
+    height: 440px;          /* 500 - header ongeveer */
+    overflow: hidden;
+    border-top: 1px solid #ddd;
+    }
+
+    /* Zorg dat de webcomponent de beschikbare ruimte gebruikt */
+    gradio-app {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+  </style>
+</head>
+<body>
+
+<div id="chat-launcher" aria-label="Chat openen" title="Chat openen">💬</div>
+
+<div id="chat-teaser">
+  <strong>Hulp nodig?</strong>
+  <div>Kan ik je helpen met een vraag over erfelijkheid?</div>
+  <div class="actions">
+    <button class="yes" id="teaser-yes">Ja</button>
+    <button class="no" id="teaser-no">Nee</button>
+  </div>
+</div>
+
+<!-- Gradio webcomponent loader -->
+<script
+  type="module"
+  src="https://gradio.s3-us-west-2.amazonaws.com/6.3.0/gradio.js"
+></script>
+
+<!-- Floating container voor de embedded chatbot -->
+<div id="chat-widget">
+  <div class="chatbox">
+    <div class="chat-header">
+      <span>Stel je vraag aan de Wegwijzer</span>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <a href="https://www.erfocentrum.nl/contact" target="_blank" rel="noopener" class="vragenlijn-link">
+          Vragenlijn
+        </a>
+        <button class="chat-close" id="chat-close" aria-label="Chat sluiten">×</button>
+      </div>
+    </div>
+
+    <div class="chat-embed">
+      <gradio-app src="https://elhartw-dsp.hf.space"></gradio-app>
+    </div>
+  </div>
+</div>
+
+
+<header>
+  <h1>Erfocentrum</h1>
+  <p>Wijzer over je DNA</p>
+</header>
+
+<main>
+  <div class="content">
+    <h2>Welkom</h2>
+    <p>
+      Erfocentrum geeft onafhankelijke informatie over erfelijke aandoeningen,
+      DNA-onderzoek en erfelijkheid.
+    </p>
+
+    <h3>Veel bekeken onderwerpen</h3>
+    <ul>
+      <li>Wat is erfelijkheid?</li>
+      <li>Erfelijke ziekten</li>
+      <li>DNA-onderzoek</li>
+      <li>Zwangerschap en erfelijkheid</li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  Dit is een prototype
+</footer>
+
+<script>
+  const teaserEl = document.getElementById("chat-teaser");
+  const teaserYes = document.getElementById("teaser-yes");
+  const teaserNo = document.getElementById("teaser-no");
+  const launcherEl = document.getElementById("chat-launcher");
+  const hasSeenTeaserKey = "hasSeenChatTeaser";
+  const closeBtn = document.getElementById("chat-close");
+
+  const widgetEl = document.getElementById("chat-widget");
+  const chatEl = document.getElementById("chat");
+
+  let privacyAccepted = false;
+  const privacyAcceptedKey = "privacyAccepted";
+
+
+  function addMessage(text, who = "bot") {
+    const div = document.createElement("div");
+    div.className = `message ${who}`;
+    div.textContent = text;
+    chatEl.appendChild(div);
+    chatEl.scrollTop = chatEl.scrollHeight;
+  }
+
+  function addPrivacyButtons() {
+    const div = document.createElement("div");
+    div.className = "message bot";
+
+    const text = document.createElement("div");
+    text.textContent =
+      "Wij vinden jouw privacy belangrijk. Bekijk daarom onze privacyverklaring; ga je hiermee akkoord?";
+
+    const yesBtn = document.createElement("button");
+    yesBtn.textContent = "Akkoord";
+    yesBtn.style.marginRight = "8px";
+
+    const noBtn = document.createElement("button");
+    noBtn.textContent = "Niet akkoord";
+
+    yesBtn.onclick = () => {
+      privacyAccepted = true;
+      sessionStorage.setItem(privacyAcceptedKey, "true")
+      div.remove();
+      addMessage("Dank je wel. Je kunt nu een vraag stellen.");
+      inputEl.disabled = false;
+      buttonEl.disabled = false;
+    };
+
+
+    noBtn.onclick = () => {
+      addMessage("Zonder akkoord kan ik geen vragen beantwoorden.");
+      inputEl.disabled = true;
+      buttonEl.disabled = true;
+    };
+
+    div.appendChild(text);
+    div.appendChild(yesBtn);
+    div.appendChild(noBtn);
+    chatEl.appendChild(div);
+  }
+
+  function initChat() {
+  chatEl.innerHTML = "";
+
+  // Altijd medische disclaimer
+  addMessage("Let op: voor persoonlijk medisch advies kun je het beste contact opnemen met je (huis)arts.");
+
+  // Check opgeslagen privacy akkoord
+  privacyAccepted = (sessionStorage.getItem(privacyAcceptedKey) === "true");
+
+  if (privacyAccepted) {
+      addMessage("Welkom terug. Je kunt direct een vraag stellen.");
+      inputEl.disabled = false;
+      buttonEl.disabled = false;
+  } else {
+      inputEl.disabled = true;
+      buttonEl.disabled = true;
+      addPrivacyButtons();
+    }
+  }
+
+
+  function showLauncher() {
+    teaserEl.style.display = "none";
+    widgetEl.style.display = "none";
+    launcherEl.style.display = "flex";
+  }
+
+  function showTeaser() {
+    teaserEl.style.display = "block";
+    widgetEl.style.display = "none";
+    launcherEl.style.display = "none";
+  }
+
+  function openChat() {
+    teaserEl.style.display = "none";
+    launcherEl.style.display = "none";
+    widgetEl.style.display = "block";
+    initChat();
+  }
+
+
+// Alleen eerste keer teaser tonen
+if (sessionStorage.getItem(hasSeenTeaserKey) === "true") {
+  showLauncher();
+} else {
+  showTeaser();
+}
+
+teaserYes.addEventListener("click", () => {
+  sessionStorage.setItem(hasSeenTeaserKey, "true");
+  openChat();
+});
+
+teaserNo.addEventListener("click", () => {
+  sessionStorage.setItem(hasSeenTeaserKey, "true");
+  showLauncher();
+});
+
+launcherEl.addEventListener("click", () => {
+  openChat();
+});
+
+closeBtn.addEventListener("click", () => {
+  showLauncher();
+});
+
+</script>
+
+</body>
+</html>
