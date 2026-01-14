@@ -1,0 +1,25 @@
+==================================================
+ERFOCENTRUM CHATBOT - GESPREK EXPORT
+Datum: 2026-01-12 11:58:43
+==================================================
+
+👤 Gebruiker:
+Wat is erfelijkheid?
+
+--------------------------------------------------
+
+🤖 Erfocentrum Bot:
+Erfelijkheid is de manier waarop eigenschappen en aandoeningen van ouders op hun kinderen worden doorgegeven. Dit gebeurt via DNA, dat in de cellen van ons lichaam zit. Een deel van dit DNA bevindt zich in de celkern, maar er is ook DNA buiten de celkern, in de mitochondriën. Erfelijkheid kan op verschillende manieren plaatsvinden, zoals via genen die van ouders op kinderen worden overgedragen. Soms kunnen afwijkingen in het DNA, zoals mutaties, leiden tot erfelijke ziekten. Het is belangrijk om kinderen te informeren over erfelijkheid, vooral als er ziekten in de familie voorkomen.
+
+--------------------------------------------------
+
+👤 Gebruiker:
+Is kanker erfelijk?
+
+--------------------------------------------------
+
+🤖 Erfocentrum Bot:
+Ja, kanker kan erfelijk zijn. Er zijn bepaalde genetische aanlegfactoren die de kans op het ontwikkelen van kanker kunnen verhogen, vooral als er een familiegeschiedenis van kanker is. Het is belangrijk voor mensen met kanker in de familie om zich te laten onderzoeken en om op de hoogte te zijn van hun erfelijke risico's.
+
+--------------------------------------------------
+
