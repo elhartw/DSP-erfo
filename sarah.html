@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Erfocentrum – Prototype</title>
+
+  <style>
+    :root {
+      --primary: #005a8f;
+      --primary-light: #e6f0f6;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --bg: #f5f7f8;
+      --border: #d8dee3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Arial", "Helvetica Neue", Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+/* ---------- ERFO HEADER ---------- */
+
+header {
+  background: white;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-top {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 45px;
+}
+
+.site-logo {
+  height: 60px;
+  width: auto;
+}
+
+.header-search {
+  flex: 1;
+  display: flex;
+}
+
+.header-search input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.header-actions img {
+  height: 60px;
+  cursor: pointer;
+}
+
+/* ---------- NAV ---------- */
+
+.main-nav {
+  border-top: 1px solid var(--border);
+}
+
+.main-nav ul {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  list-style: none;
+  display: flex;
+   justify-content: center;
+  gap: 65px;
+}
+
+.main-nav a {
+  display: inline-block;
+  padding: 14px 0;
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.main-nav a:hover {
+  text-decoration: underline;
+}
+
+
+    /* ---------- MAIN CONTENT ---------- */
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 20px 40px;
+    }
+
+    .content {
+      background: white;
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    h3 {
+      margin-top: 28px;
+      font-size: 18px;
+    }
+
+    ul {
+      padding-left: 18px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      padding: 20px;
+    }
+
+    /* ---------- CHAT LAUNCHER ---------- */
+
+    #chat-launcher {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      z-index: 9999;
+      font-size: 22px;
+    }
+
+    /* ---------- CHAT TEASER ---------- */
+
+    #chat-teaser {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 320px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      padding: 16px;
+      z-index: 9999;
+      border: 1px solid var(--border);
+    }
+
+    #chat-teaser strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    #chat-teaser .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    #chat-teaser button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    #chat-teaser .yes {
+      background: var(--primary);
+      color: white;
+    }
+
+    #chat-teaser .no {
+      background: #eef1f3;
+    }
+
+    /* ---------- CHAT WIDGET ---------- */
+
+    #chat-widget {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 500px;
+      display: none;
+      z-index: 9999;
+      transition: all 0.3s ease;
+    }
+
+    .chatbox {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      height: 700px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      padding: 12px 14px;
+      background: var(--primary-light);
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chat-header a {
+      font-weight: normal;
+      font-size: 13px;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .chat-header a:hover {
+      text-decoration: underline;
+    }
+
+    .chat-header-buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-expand,
+    .chat-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .chat-expand:hover,
+    .chat-close:hover {
+      opacity: 0.7;
+    }
+
+    /* Expanded state */
+    #chat-widget.expanded {
+      width: 50vw;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #chat-widget.expanded .chatbox {
+      height: 100%;
+      border-radius: 0;
+      border-right: none;
+      border-bottom: none;
+      border-top: none;
+    }
+
+    .chat-embed {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    gradio-app {
+      display: block;
+      width: 100%;
+      height: 100%;
+      flex: 1;
+    }
+
+    /* Verberg eventuele padding/margins in Gradio iframe */
+    #chat-widget.expanded gradio-app {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="chat-launcher" aria-label="Chat openen" title="Chat openen">💬</div>
+
+<div id="chat-teaser">
+  <strong>Hulp nodig?</strong>
+  <div>Kan ik je helpen met een vraag over erfelijkheid?</div>
+  <div class="actions">
+    <button class="yes" id="teaser-yes">Ja</button>
+    <button class="no" id="teaser-no">Nee</button>
+  </div>
+</div>
+
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/6.3.0/gradio.js"
+></script>
+
+<div id="chat-widget">
+  <div class="chatbox">
+    <div class="chat-header">
+      <span>Stel je vraag aan de Wegwijzer</span>
+      <div class="chat-header-buttons">
+        <a href="https://www.erfocentrum.nl/contact" target="_blank" rel="noopener">
+          Vragenlijn
+        </a>
+        <button class="chat-expand" id="chat-expand" aria-label="Chat vergroten/verkleinen">⛶</button>
+        <button class="chat-close" id="chat-close" aria-label="Chat sluiten">×</button>
+      </div>
+    </div>
+
+    <div class="chat-embed">
+      <gradio-app src="https://elhartw-dsp.hf.space"></gradio-app>
+    </div>
+  </div>
+</div>
+
+<header role="banner">
+  <div class="header-top">
+    <img
+      src="https://www.erfelijkheid.nl/themes/custom/erfelijkheid/logo.png"
+      alt="Erfocentrum"
+      class="site-logo"
+    />
+
+    <div class="header-search">
+      <input
+        type="search"
+        placeholder="Zoek op een ziekte of ander onderwerp"
+        aria-label="Zoeken"
+      />
+    </div>
+
+    <div class="header-actions">
+      <a href="https://www.erfocentrum.nl/contact" target="_blank" rel="noopener">
+        <img
+          src="https://www.erfelijkheid.nl/themes/custom/erfelijkheid/images/btn_contact.png"
+          alt="Vragen? Mail de Erfolijn"
+        />
+      </a>
+    </div>
+  </div>
+
+  <nav class="main-nav" aria-label="Hoofdnavigatie">
+    <ul>
+      <li><a href="#">Erfelijk of niet</a></li>
+      <li><a href="#">DNA-onderzoek</a></li>
+      <li><a href="#">Ziekten (en dan?)</a></li>
+      <li><a href="#">Kinderwens</a></li>
+      <li><a href="#">Familie of niet</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+
+<main>
+  <div class="content">
+    <h2>Welkom</h2>
+    <p>
+      Erfocentrum geeft onafhankelijke informatie over erfelijke aandoeningen,
+      DNA-onderzoek en erfelijkheid.
+    </p>
+
+    <h3>Veel bekeken onderwerpen</h3>
+    <ul>
+      <li>Wat is erfelijkheid?</li>
+      <li>Erfelijke ziekten</li>
+      <li>DNA-onderzoek</li>
+      <li>Zwangerschap en erfelijkheid</li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  Dit is een prototype
+</footer>
+
+<script>
+  const teaserEl = document.getElementById("chat-teaser");
+  const teaserYes = document.getElementById("teaser-yes");
+  const teaserNo = document.getElementById("teaser-no");
+  const launcherEl = document.getElementById("chat-launcher");
+  const hasSeenTeaserKey = "hasSeenChatTeaser";
+  const closeBtn = document.getElementById("chat-close");
+  const expandBtn = document.getElementById("chat-expand");
+
+  const widgetEl = document.getElementById("chat-widget");
+  const chatEl = document.getElementById("chat");
+
+  let privacyAccepted = false;
+  const privacyAcceptedKey = "privacyAccepted";
+
+
+  function addMessage(text, who = "bot") {
+    const div = document.createElement("div");
+    div.className = `message ${who}`;
+    div.textContent = text;
+    chatEl.appendChild(div);
+    chatEl.scrollTop = chatEl.scrollHeight;
+  }
+
+  function addPrivacyButtons() {
+    const div = document.createElement("div");
+    div.className = "message bot";
+
+    const text = document.createElement("div");
+    text.textContent =
+      "Wij vinden jouw privacy belangrijk. Bekijk daarom onze privacyverklaring; ga je hiermee akkoord?";
+
+    const yesBtn = document.createElement("button");
+    yesBtn.textContent = "Akkoord";
+    yesBtn.style.marginRight = "8px";
+
+    const noBtn = document.createElement("button");
+    noBtn.textContent = "Niet akkoord";
+
+    yesBtn.onclick = () => {
+      privacyAccepted = true;
+      sessionStorage.setItem(privacyAcceptedKey, "true")
+      div.remove();
+      addMessage("Dank je wel. Je kunt nu een vraag stellen.");
+      inputEl.disabled = false;
+      buttonEl.disabled = false;
+    };
+
+
+    noBtn.onclick = () => {
+      addMessage("Zonder akkoord kan ik geen vragen beantwoorden.");
+      inputEl.disabled = true;
+      buttonEl.disabled = true;
+    };
+
+    div.appendChild(text);
+    div.appendChild(yesBtn);
+    div.appendChild(noBtn);
+    chatEl.appendChild(div);
+  }
+
+  function initChat() {
+  chatEl.innerHTML = "";
+
+  // Altijd medische disclaimer
+  addMessage("Let op: voor persoonlijk medisch advies kun je het beste contact opnemen met je (huis)arts.");
+
+  // Check opgeslagen privacy akkoord
+  privacyAccepted = (sessionStorage.getItem(privacyAcceptedKey) === "true");
+
+  if (privacyAccepted) {
+      addMessage("Welkom terug. Je kunt direct een vraag stellen.");
+      inputEl.disabled = false;
+      buttonEl.disabled = false;
+  } else {
+      inputEl.disabled = true;
+      buttonEl.disabled = true;
+      addPrivacyButtons();
+    }
+  }
+
+
+  function showLauncher() {
+    teaserEl.style.display = "none";
+    widgetEl.style.display = "none";
+    launcherEl.style.display = "flex";
+  }
+
+  function showTeaser() {
+    teaserEl.style.display = "block";
+    widgetEl.style.display = "none";
+    launcherEl.style.display = "none";
+  }
+
+  function openChat() {
+    teaserEl.style.display = "none";
+    launcherEl.style.display = "none";
+    widgetEl.style.display = "block";
+    initChat();
+  }
+
+
+// Alleen eerste keer teaser tonen
+if (sessionStorage.getItem(hasSeenTeaserKey) === "true") {
+  showLauncher();
+} else {
+  showTeaser();
+}
+
+teaserYes.addEventListener("click", () => {
+  sessionStorage.setItem(hasSeenTeaserKey, "true");
+  openChat();
+});
+
+teaserNo.addEventListener("click", () => {
+  sessionStorage.setItem(hasSeenTeaserKey, "true");
+  showLauncher();
+});
+
+launcherEl.addEventListener("click", () => {
+  openChat();
+});
+
+closeBtn.addEventListener("click", () => {
+  showLauncher();
+});
+
+expandBtn.addEventListener("click", () => {
+  widgetEl.classList.toggle("expanded");
+});
+
+</script>
+
+
+</body>
+</html>
